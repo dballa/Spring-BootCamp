@@ -15,9 +15,9 @@ public class Coin {
 	totalNumberOfFlipsForThisCoin++;
 	totalNumberOfFlipsForAllCoins++;
 	if(this.face==0) {
-	return HeadTail.HEADS.getId();	
+	return HeadsTails.HEADS.getId();	
 	}else {
-	return HeadTail.TAILS.getId();	
+	return HeadsTails.TAILS.getId();	
 	 }	
 	}
 
