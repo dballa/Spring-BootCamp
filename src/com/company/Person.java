@@ -2,11 +2,17 @@ package com.company;
 
 import util.Roles;
 
-
 public class Person {
     private String name;
-    private int Age;
+    private int age;
     private Roles role;
+
+    public Person(String name,int age,Roles role) {
+        super();
+        this.name = name;
+        this.age = age;
+        this.role = role;
+    }
 
     public String getName() {
         return name;
@@ -17,11 +23,11 @@ public class Person {
     }
 
     public int getAge() {
-        return Age;
+        return age;
     }
 
     public void setAge(int age) {
-        Age = age;
+        age = age;
     }
 
     public Roles getRole() {
@@ -34,9 +40,9 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Perosn{" +
+        return "Person{" +
                 "name='" + name + '\'' +
-                ", Age=" + Age +
+                ", age=" + age +
                 ", role=" + role +
                 '}';
     }

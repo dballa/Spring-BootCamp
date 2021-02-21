@@ -2,7 +2,8 @@ package com.company;
 
 import util.Positions;
 import util.Roles;
-import util.Strategyes;
+
+import java.util.ArrayList;
 
 
 //You are asked to manage the football game.
@@ -15,38 +16,34 @@ public class Main {
     public static void main(String[] args) {
 
         Game game1 = new Game();
-        Team team1 = new Team();
-        Team team2 = new Team();
+        Team team1 = new Team("team2",new Person("Bledi",32,Roles.Coach),"Atack",new ArrayList<>());
+        Team team2 = new Team("team2",new Person("Bledi",32,Roles.Coach),"Atack",new ArrayList<>());
 
-        team1.setTeamName("RM");
-        team2.setTeamName("Liverpool");
+//        team1.setName("RM");
+//        team2.setName("Liverpool");
 
-        Person referee = new Person();
-        referee.setName("Goku");
-        referee.setAge(45);
-        referee.setRole(Roles.Referee);
+        Person referee = new Person("Goku",1000,Roles.Referee);
 
-
-        Coach coach1 = new Coach("Sasuke",team1,Roles.Coach);
+        Person coachOfHomeTeam = new Person("Sasuke",50,Roles.Coach);
         Player player1 = new Player("p1",20,Roles.Player,team1,Positions.Attacker);
         Player player2 = new Player("p2",20,Roles.Player,team1,Positions.Goalkeeper);
 
-
-        Coach coach2 = new Coach("Naruto",team2,Roles.Coach);
+        Person coachOfGuessTeam = new Person("Naruto",50,Roles.Coach);
         Player player3 = new Player("p1",20,Roles.Player,team1,Positions.Midfielder);
         Player player4 = new Player("p2",20,Roles.Player,team1,Positions.Defender);
 
-        game1.setTeam1(team1);
-        game1.setTeam2(team1);
+        game1.setHomeTeam(team1);
+        game1.setGuessTeam(team2);
         game1.setReferee(referee);
 
-        team1.setCoachOfTeam(coach1);
-        team1.setStrategy(Strategyes.Attack);
+        team1.setCoach(coachOfHomeTeam);
+        team1.setStrategy("Attack");
 
-        team2.setCoachOfTeam(coach2);
-        team2.setStrategy(Strategyes.Defend);
+        team2.setCoach(coachOfGuessTeam);
+        team2.setStrategy("Defend");
 
-
+        team1.addPlayer(player1);
+        System.out.println();
         System.out.println(player1.getName());
         System.out.println(game1.toString());
         System.out.println(player1.toString());

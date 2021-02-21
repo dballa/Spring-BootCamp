@@ -1,53 +1,64 @@
 package com.company;
 
-import util.Strategyes;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Team {
-    private String teamName;
-    private Coach coachOfTeam;
-    private Person players;
-    private Strategyes strategy;
+    private String name;
+    private Person coach;
+    private String strategy;
+    private List <Player> players = new ArrayList<Player>();
 
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public Coach getCoachOfTeam() {
-        return coachOfTeam;
-    }
-
-    public void setCoachOfTeam(Coach coachOfTeam) {
-        this.coachOfTeam = coachOfTeam;
-    }
-
-    public Person getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Person players) {
+    public Team(String name,Person coach,String strategy,List<Player> players) {
+        this.name = name;
+        this.coach = coach;
+        this.strategy = strategy;
         this.players = players;
     }
 
-    public Strategyes getStrategy() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Person getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Person coach) {
+        this.coach = coach;
+    }
+
+    public String getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(Strategyes strategy) {
+    public void setStrategy(String strategy) {
         this.strategy = strategy;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public void addPlayer(Player player){
+        this.players.add(player);
     }
 
     @Override
     public String toString() {
         return "Team{" +
-                "teamName='" + teamName + '\'' +
-                ", coachOfTeam=" + coachOfTeam +
-                ", players=" + players +
-                ", strategy=" + strategy +
+                "teamName='" + name + '\'' +
+                ", coachOfTeam=" + coach +
+                ", strategy='" + strategy + '\'' +
+                ", teamPlayers=" + players +
                 '}';
     }
 }
