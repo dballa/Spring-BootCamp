@@ -1,20 +1,20 @@
 package com.ikubinfo.ioc.currencyconverter.domain.rate;
 
-import org.springframework.web.client.RestTemplate;
+import org.springframework.stereotype.Component;
 
 import com.ikubinfo.ioc.currencyconverter.domain.Currency;
 import com.ikubinfo.ioc.currencyconverter.domain.rate.request.Rate;
 import com.ikubinfo.ioc.external.bankrateservice.NationalBankRateService;
 import com.ikubinfo.ioc.external.bankrateservice.RateResponse;
 
+@Component
 public class RateService {
 
 	NationalBankRateService bankRateService;
 
-	public RateService() {
+	public RateService(NationalBankRateService bankRateService) {
 		super();
-		
-		this.bankRateService = new NationalBankRateService();
+		this.bankRateService = bankRateService;
 	}
 
 	public Rate getRate(int fromcurrencyCode, int toCurrencyCode) {

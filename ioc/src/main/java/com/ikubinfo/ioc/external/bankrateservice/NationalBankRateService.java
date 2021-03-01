@@ -1,17 +1,19 @@
 package com.ikubinfo.ioc.external.bankrateservice;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+@Component
 public class NationalBankRateService {
 
 	RestTemplate restTemplate;
 	String url;
 
-	public NationalBankRateService() {
+	public NationalBankRateService(RestTemplate restTemplate, @Value("${ikubinfo.url}") String url) {
 		super();
-		this.restTemplate = new RestTemplate();// this seems easy but we could have more complex initialization
-		this.url = "URL"; // but the requirements will be to read this from some property files or system
-							// variables;
+		this.restTemplate = restTemplate;
+		this.url = url;
 	}
 
 	public RateResponse getRate(int fromCurrencyCode, int toCurrenctyCode) {

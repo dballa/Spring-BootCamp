@@ -15,10 +15,8 @@ public class ExchangeResource {
 
 	ExchangeService exchangeService;
 
-	public ExchangeResource() {
-		super();
-		// Changed ExhcangeService to have a no arguments constructor
-		this.exchangeService = new ExchangeService();
+	public ExchangeResource(ExchangeService exchangeService) {
+		this.exchangeService = exchangeService;
 	}
 
 	@PostMapping

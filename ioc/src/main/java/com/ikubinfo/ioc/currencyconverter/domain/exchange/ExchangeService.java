@@ -1,18 +1,20 @@
 package com.ikubinfo.ioc.currencyconverter.domain.exchange;
 
+import org.springframework.stereotype.Component;
+
 import com.ikubinfo.ioc.currencyconverter.domain.exchange.request.ExchangeRequest;
 import com.ikubinfo.ioc.currencyconverter.domain.exchange.response.ExchangeRespnse;
 import com.ikubinfo.ioc.currencyconverter.domain.rate.RateService;
 import com.ikubinfo.ioc.currencyconverter.domain.rate.request.Rate;
 
+@Component
 public class ExchangeService {
 
 	private RateService rateService;
 
-	public ExchangeService() {
+	public ExchangeService(RateService rateService) {
 		super();
-//Removed the constructor parameters from RateService
-		this.rateService = new RateService();
+		this.rateService = rateService;
 	}
 
 	public ExchangeRespnse exchange(ExchangeRequest request) {
