@@ -13,8 +13,8 @@ public class RateService {
 
 	public RateService() {
 		super();
-		// Still RateService know implementationDetails about NationalBankRateService
-		this.bankRateService = new NationalBankRateService(new RestTemplate(), "URL");
+		
+		this.bankRateService = new NationalBankRateService();
 	}
 
 	public Rate getRate(int fromcurrencyCode, int toCurrencyCode) {
