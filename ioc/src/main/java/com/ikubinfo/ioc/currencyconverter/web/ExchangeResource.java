@@ -20,6 +20,7 @@ public class ExchangeResource {
 
 	public ExchangeResource() {
 		super();
+		//The ExchangeResource doesn't have to know about the existence of new NationalBankRateService or even new RestTemplate()
 		this.exchangeService = new ExchangeService(
 				new RateService(new NationalBankRateService(new RestTemplate(), "URL")));
 	}
