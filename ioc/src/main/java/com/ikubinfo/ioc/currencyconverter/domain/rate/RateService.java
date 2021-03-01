@@ -1,5 +1,7 @@
 package com.ikubinfo.ioc.currencyconverter.domain.rate;
 
+import org.springframework.web.client.RestTemplate;
+
 import com.ikubinfo.ioc.currencyconverter.domain.Currency;
 import com.ikubinfo.ioc.currencyconverter.domain.rate.request.Rate;
 import com.ikubinfo.ioc.external.bankrateservice.NationalBankRateService;
@@ -9,9 +11,10 @@ public class RateService {
 
 	NationalBankRateService bankRateService;
 
-	public RateService(NationalBankRateService bankRateService) {
+	public RateService() {
 		super();
-		this.bankRateService = bankRateService;
+		// Still RateService know implementationDetails about NationalBankRateService
+		this.bankRateService = new NationalBankRateService(new RestTemplate(), "URL");
 	}
 
 	public Rate getRate(int fromcurrencyCode, int toCurrencyCode) {

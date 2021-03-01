@@ -1,12 +1,9 @@
 package com.ikubinfo.ioc.currencyconverter.domain.exchange;
 
-import org.springframework.web.client.RestTemplate;
-
 import com.ikubinfo.ioc.currencyconverter.domain.exchange.request.ExchangeRequest;
 import com.ikubinfo.ioc.currencyconverter.domain.exchange.response.ExchangeRespnse;
 import com.ikubinfo.ioc.currencyconverter.domain.rate.RateService;
 import com.ikubinfo.ioc.currencyconverter.domain.rate.request.Rate;
-import com.ikubinfo.ioc.external.bankrateservice.NationalBankRateService;
 
 public class ExchangeService {
 
@@ -14,9 +11,8 @@ public class ExchangeService {
 
 	public ExchangeService() {
 		super();
-		// still ExchangeService know/sees implementation details about rate service and
-		// also NationalBankRateService and RestTemplate
-		this.rateService = new RateService(new NationalBankRateService(new RestTemplate(), "URL"));
+//Removed the constructor parameters from RateService
+		this.rateService = new RateService();
 	}
 
 	public ExchangeRespnse exchange(ExchangeRequest request) {
