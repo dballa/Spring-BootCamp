@@ -1,6 +1,9 @@
-package services;
+package com.bmi.app.services;
 
-public class Request {
+import org.springframework.stereotype.Component;
+
+@Component
+public class BmiRequest {
 	private int height;
 	private int weight;
 

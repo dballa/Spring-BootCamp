@@ -1,19 +1,19 @@
-package services;
+package com.bmi.app.services;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import calculation.CalculateBmi;
+import com.bmi.app.calculation.CalculateBmi;
 
-@Component
-public class Service {
+@Service
+public class BmiService {
 	CalculateBmi calculateBmi;
 
-	public Service(CalculateBmi calculateBmi) {
+	public BmiService(CalculateBmi calculateBmi) {
 		this.calculateBmi = calculateBmi;
 	}
 
-	public Response generateResponse(Request request) {
-		Response response = new Response();
+	public BmiResponse generateResponse(BmiRequest request) {
+		BmiResponse response = new BmiResponse();
 		double bmi = calculateBmi.getBMI(request);
 		if (bmi < 18.5) {
 			response.setBmiValue(bmi);

@@ -1,6 +1,6 @@
-package services;
+package com.bmi.app.services;
 
-public class Response {
+public class BmiResponse {
 	private double bmiValue;
 	private String description;
 
