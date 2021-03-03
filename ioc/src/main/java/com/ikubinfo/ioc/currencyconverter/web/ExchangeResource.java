@@ -1,5 +1,6 @@
 package com.ikubinfo.ioc.currencyconverter.web;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,13 +16,17 @@ public class ExchangeResource {
 
 	ExchangeService exchangeService;
 
+	@Value("${ikubinfo.appName}")
+	private String appName;
+
 	public ExchangeResource(ExchangeService exchangeService) {
+	
 		this.exchangeService = exchangeService;
 	}
 
 	@PostMapping
 	private ExchangeRespnse exchange(@RequestBody ExchangeRequest request) {
-		System.out.println(request);
+		System.out.println(appName);
 		return exchangeService.exchange(request);
 	}
 

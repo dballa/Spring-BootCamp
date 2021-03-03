@@ -10,7 +10,7 @@ public class NationalBankRateService {
 	RestTemplate restTemplate;
 	String url;
 
-	public NationalBankRateService(RestTemplate restTemplate, @Value("${ikubinfo.url}") String url) {
+	public NationalBankRateService(RestTemplate restTemplate, @Value("${ikubinfo.appName}") String url) {
 		super();
 		this.restTemplate = restTemplate;
 		this.url = url;
