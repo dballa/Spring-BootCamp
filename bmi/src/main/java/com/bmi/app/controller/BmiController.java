@@ -28,7 +28,6 @@ public class BmiController {
 	
 	@PostMapping("/bmi")
 	public BmiResponse response(@RequestBody BmiRequest request) {
-		System.out.println(request);
 		return service.generateResponse(request);
 	}
 	
