@@ -3,8 +3,9 @@ package com.ikub.bmi;
 import com.ikub.bmi.request.BmiRequest;
 import com.ikub.bmi.response.BmiResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class BmiService {
 
     public BmiResponse calculate(BmiRequest request){
