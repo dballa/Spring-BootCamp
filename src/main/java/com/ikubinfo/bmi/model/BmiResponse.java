@@ -1,6 +1,6 @@
 package com.ikubinfo.bmi.model;
 
-import com.ikubinfo.bmi.Description;
+import com.ikubinfo.bmi.enums.Description;
 
 public class BmiResponse {
     private double bmiNum;

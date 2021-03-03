@@ -1,6 +1,6 @@
 package com.ikubinfo.bmi.service;
 
-import com.ikubinfo.bmi.Description;
+import com.ikubinfo.bmi.enums.Description;
 import com.ikubinfo.bmi.model.BmiRequest;
 import com.ikubinfo.bmi.model.BmiResponse;
 import org.springframework.stereotype.Component;

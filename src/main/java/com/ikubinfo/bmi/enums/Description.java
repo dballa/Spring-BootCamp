@@ -1,4 +1,4 @@
-package com.ikubinfo.bmi;
+package com.ikubinfo.bmi.enums;
 
 public enum Description {
     UNDERWEIGHT("",1),
