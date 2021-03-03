@@ -4,15 +4,15 @@ import org.springframework.stereotype.Component;
 
 import com.ikubinfo.ioc.currencyconverter.domain.Currency;
 import com.ikubinfo.ioc.currencyconverter.domain.rate.request.Rate;
-import com.ikubinfo.ioc.external.bankrateservice.NationalBankRateService;
+import com.ikubinfo.ioc.external.bankrateservice.BankService;
 import com.ikubinfo.ioc.external.bankrateservice.RateResponse;
 
 @Component
 public class RateService {
 
-	NationalBankRateService bankRateService;
+	BankService bankRateService;
 
-	public RateService(NationalBankRateService bankRateService) {
+	public RateService(BankService bankRateService) {
 		super();
 		this.bankRateService = bankRateService;
 	}

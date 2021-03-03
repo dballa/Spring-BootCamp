@@ -1,11 +1,13 @@
 package com.ikubinfo.ioc.external.bankrateservice;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class NationalBankRateService {
+@Profile("prod")
+public class NationalBankRateService implements BankService {
 
 	RestTemplate restTemplate;
 	String url;
@@ -14,8 +16,10 @@ public class NationalBankRateService {
 		super();
 		this.restTemplate = restTemplate;
 		this.url = url;
+		System.out.println("Hello from prod profile");
 	}
 
+	@Override
 	public RateResponse getRate(int fromCurrencyCode, int toCurrenctyCode) {
 		return new RateResponse(fromCurrencyCode, toCurrenctyCode, randDouble(124, 149));
 	}
