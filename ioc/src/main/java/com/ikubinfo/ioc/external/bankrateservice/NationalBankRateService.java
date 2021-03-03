@@ -1,12 +1,12 @@
 package com.ikubinfo.ioc.external.bankrateservice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-@Profile("prod")
 public class NationalBankRateService implements BankService {
 
 	RestTemplate restTemplate;
@@ -30,6 +30,16 @@ public class NationalBankRateService implements BankService {
 		double max = Math.max(bound1, bound2);
 		// math.random gives random number from 0 to 1
 		return min + (Math.random() * (max - min));
+	}
+
+	@Autowired
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+
+	@Value("${ikubinfo.appName}")
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }
