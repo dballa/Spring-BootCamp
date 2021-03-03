@@ -2,7 +2,6 @@ package com.ikub.bmi.bmicalculator.request;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class BmiRequest {
 
 	private float height;

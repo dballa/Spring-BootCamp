@@ -7,13 +7,6 @@ import com.ikub.bmi.bmicalculator.request.BmiRequest;
 @Component
 public class Calculator implements CalculatorBmi {
 	
-	BmiRequest request;
-	
-	public Calculator(BmiRequest request) {
-		
-		this.request=request;
-	}
-	
 	@Override
 	public double calculateBmi(BmiRequest request){
 		
