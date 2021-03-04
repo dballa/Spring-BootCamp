@@ -1,0 +1,5 @@
+S9:
+  appName: AppForDev
+
+spring:
+  mode: DEVELOPER
