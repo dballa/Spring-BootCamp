@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
-public class BmiServiceCalc {
-
-    BmiService service;
+public class BmiServiceCalc implements BmiService{
 
     public double calculate (double weight,double height) {
         return (weight / (Math.pow(height, 2)));
