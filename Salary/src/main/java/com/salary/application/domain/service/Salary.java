@@ -20,6 +20,10 @@ public class Salary {
 	public void setNettoSalary(SalaryResponse nettoSalary) {
 		this.nettoSalary = nettoSalary;
 	}
+	@Override
+	public String toString() {
+		return "Salary [bruttoSalary=" + bruttoSalary + ", nettoSalary="+nettoSalary+"]";
+	}
 	
 	
 

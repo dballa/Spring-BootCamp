@@ -14,8 +14,8 @@ import com.salary.application.domain.service.SalaryService;
 @Profile("dev")
 public class NormalNettoSalary implements SalaryService {
 	
-	private static ArrayList<Salary> allRequests=new ArrayList<>();
-	private static double sumOfSalaries;
+	private ArrayList<Salary> allRequests=new ArrayList<>();
+	private double sumOfSalaries;
 	private Salary salary=new Salary();
 	
 	@Override
@@ -39,7 +39,7 @@ public class NormalNettoSalary implements SalaryService {
 	}
 	@Override
 	public double averageNettoSalary() {
-		if(allRequests.size()!=0) {
+		if(!allRequests.isEmpty()) {
 			return sumOfSalaries/allRequests.size();
 		}else {
 			return 0;

@@ -14,8 +14,8 @@ import com.salary.application.domain.service.Salary;
 @Profile("prod")
 public class PersonalizedNettoSalary implements SalaryService {
 	
-	private static ArrayList<Salary> allRequests=new ArrayList<>();
-	private static double sumOfSalaries;
+	private ArrayList<Salary> allRequests=new ArrayList<>();
+	private double sumOfSalaries;
 	private Salary salary=new Salary();
 	@Override
 	public SalaryResponse calculateNettoSalary(SalaryRequest bruttoSalary) {
@@ -44,7 +44,7 @@ public class PersonalizedNettoSalary implements SalaryService {
 	}
 	@Override
 	public double averageNettoSalary() {
-		if(allRequests.size()!=0) {
+		if(!allRequests.isEmpty()) {
 			return sumOfSalaries/allRequests.size();
 		}else {
 			return 0;
