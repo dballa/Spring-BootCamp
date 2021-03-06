@@ -25,7 +25,7 @@ public class PaymentCalcService implements PaymentCalc{
     }
 
     @Override
-    public PaymentResponse getNetoPayement(@RequestBody PaymentRequest paymentRequest) {
+    public PaymentResponse getNetoPayement( PaymentRequest paymentRequest) {
         paymentRequests.add(paymentRequest);
         allNetoPayment=allNetoPayment+paymentRequest.getBrutoPayement();
         PaymentResponse response=new PaymentResponse();

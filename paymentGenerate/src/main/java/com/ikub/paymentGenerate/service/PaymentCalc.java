@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PaymentCalc {
 
-    public PaymentResponse getNetoPayement(@RequestBody PaymentRequest request);
+    public PaymentResponse getNetoPayement(PaymentRequest request);
     public List<PaymentRequest> getAllRequests();
     public List<PaymentResponse> getAllResponse();
     public double getNetoAvarage();
