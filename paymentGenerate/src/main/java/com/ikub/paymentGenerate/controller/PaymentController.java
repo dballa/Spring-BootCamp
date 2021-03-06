@@ -30,4 +30,9 @@ public class PaymentController {
     public List<PaymentResponse> getResponses(){
         return paymentCalcService.getAllResponse();
     }
+
+    @GetMapping ("/avarage")
+    public double netoAvarage(){
+        return paymentCalcService.getNetoAvarage();
+    }
 }
