@@ -1,8 +1,8 @@
 package com.ikubinfo.testing.exchange;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -44,9 +44,23 @@ public class ExchangeUseCase {
 		assertNotNull(response);
 		assertEquals(response.getAmount(), amount * rate.getConversionRate());
 		assertEquals(rate.getToCurrency(), response.getCurrency());
-		
-		
-		assertThat(request).as("Request is not null").isNotNull();
+
+	}
+
+	@Test
+	public void unsuccessfullExchange() {
+		double amount = -1;
+
+		Rate rate = new Rate(Currency.EUR, Currency.LEK, 134);
+
+		ExchangeRequest request = new ExchangeRequest();
+		request.setAmount(amount);
+		request.setOriginalCurrency(rate.getFromCurrency());
+		request.setTargetCurrency(rate.getToCurrency());
+
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> exchangeService.exchange(request));
+
+		assertEquals(exception.getMessage(), "Amount should be greater then 0");
 
 	}
 

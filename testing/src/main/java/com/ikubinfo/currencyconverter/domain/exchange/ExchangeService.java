@@ -18,11 +18,16 @@ public class ExchangeService {
 	}
 
 	public ExchangeRespnse exchange(ExchangeRequest request) {
+		
+		if(request.getAmount()<0) {
+			throw new IllegalArgumentException("Amount should be greater then 0");
+		}
 
 		Rate rate = rateService.getRate(request.getOriginalCurrency().getCode(), request.getTargetCurrency().getCode());
 
 		ExchangeRespnse response = new ExchangeRespnse();
-		response.setAmount(request.getAmount() * rate.getConversionRate());
+	
+	  	response.setAmount(request.getAmount() * rate.getConversionRate());
 		response.setCurrency(request.getTargetCurrency());
 		return response;
 

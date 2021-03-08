@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ParameterizedTestExample {
 
     @ParameterizedTest
-    @ValueSource(strings = { "cali", "bali", "dani" })
+    @ValueSource(strings = { "cali", "bali", "dan" })
     void endsWithI(String str) {
         assertTrue(str.endsWith("i"));
     }
