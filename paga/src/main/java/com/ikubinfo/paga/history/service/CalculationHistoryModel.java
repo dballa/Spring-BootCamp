@@ -1,4 +1,4 @@
-package com.ikubinfo.paga.history.aop;
+package com.ikubinfo.paga.history.service;
 
 public class CalculationHistoryModel {
 	private double request;
