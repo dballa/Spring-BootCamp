@@ -1,0 +1,15 @@
+package com.ikubinfo.reservation;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan("com.ikubinfo.reservation")
+public class ReservationApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ReservationApplication.class, args);
+	}
+
+}
