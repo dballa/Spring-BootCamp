@@ -202,7 +202,6 @@ Temporary Items
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
-
-.mvn
 /mvnw
-mvnw.cmd
+/mvnw.cmd
+/.mvn
