@@ -14,9 +14,6 @@ import java.util.List;
 public class ReservationRepoImpl implements ReservationRepo {
     private List<Reservation> reservationList = new ArrayList<>();
 
-//    public ReservationRepoImpl(List<Reservation> reservationList) {
-//        this.reservationList = reservationList;
-//    }
 
     public boolean isBetween(LocalDateTime moment, LocalDateTime begin, LocalDateTime end){
          return moment.isAfter(begin) && moment.isBefore(end);
@@ -35,23 +32,31 @@ public class ReservationRepoImpl implements ReservationRepo {
     public boolean exists(Reservation reservation) {
         //if (reservationList.isEmpty()) return false;
         for (Reservation res : reservationList) {
-            if (res.getShopServiceType().compareTo(reservation.getShopServiceType()) == 0) {
-                if (isBetween(reservation.getStartDate(), res.getStartDate(), res.getEndDate())
-                    || isBetween(reservation.getEndDate(),res.getStartDate(), res.getEndDate())
-                            || areTheSame(reservation.getStartDate(), res.getStartDate())
-                                || areTheSame(reservation.getEndDate(),res.getEndDate())) {
+            if (isServiceTheSame(res.getShopServiceType(), reservation.getShopServiceType())) {
+                if (dateOverlay(reservation.getStartDate(),reservation.getEndDate(),res.getStartDate(),res.getEndDate())
+                            || startEndOverlay(reservation.getStartDate(),reservation.getEndDate(),res.getStartDate(),res.getEndDate())) {
                     return true;
                 }
             }
         }
         return false;
     }
+    private boolean dateOverlay(LocalDateTime start,LocalDateTime end,LocalDateTime definedStart,LocalDateTime definedEnd){
+        return isBetween(start, definedStart, definedEnd)
+                || isBetween(end, definedStart, definedEnd);
+    }
+    private boolean startEndOverlay(LocalDateTime start,LocalDateTime end,LocalDateTime definedStart,LocalDateTime definedEnd){
+        return areTheSame(start, definedStart) || areTheSame(end,definedEnd);
+    }
+    private boolean isServiceTheSame(String shopServiceType, String shopServiceType2) {
+        return shopServiceType.compareTo(shopServiceType2) == 0;
+    }
 
     @Override
     public List<Reservation> getReservation(String type) {
         List<Reservation> reservations = new ArrayList<>();
         for (Reservation res : reservationList) {
-            if (res.getShopServiceType().compareTo(type) == 0) {
+            if (isServiceTheSame(res.getShopServiceType(), type)) {
                 reservations.add(res);
             }
         }

@@ -25,7 +25,6 @@ public class ReservationServiceImpl implements ReservationService {
         this.shopServiceRepo = shopServiceRepo;
     }
 
-
     @Override
     public Reservation addReservation(Reservation reservation) {
         if (reservationRepo.exists(reservation))

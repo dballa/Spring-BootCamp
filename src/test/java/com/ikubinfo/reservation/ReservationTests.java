@@ -4,45 +4,52 @@ import com.ikubinfo.reservation.model.Reservation;
 import com.ikubinfo.reservation.model.ShopService;
 import com.ikubinfo.reservation.model.User;
 import com.ikubinfo.reservation.repository.ReservationRepo;
+import com.ikubinfo.reservation.repository.UserRepo;
 import com.ikubinfo.reservation.repository.impl.ReservationRepoImpl;
+import com.ikubinfo.reservation.repository.impl.UserRepoImpl;
+import com.ikubinfo.reservation.service.ReservationService;
+import com.ikubinfo.reservation.service.UserService;
 import com.ikubinfo.reservation.service.impl.ReservationServiceImpl;
+import com.ikubinfo.reservation.service.impl.UserServiceImpl;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+
 public class ReservationTests {
+    static ReservationRepoImpl reservationRepo ;
+    static ReservationService reservationService ;
+    static User user1 ;
+    static ShopService shopService ;
+    static Reservation reservation;
+    static LocalDateTime date;
+    @BeforeAll
+    static void initialize(){
+        reservationRepo = mock(ReservationRepoImpl.class);
+        reservationService = mock(ReservationServiceImpl.class);
+        user1 = new User();
+        user1.setEmail("email");
+        user1.setName("Joan");
+        user1.setLastname("Janku");
+        date = LocalDateTime.of(2021,10,5,5,2);
+        shopService = new ShopService("Barber",200.0,"lala");
+        reservation = new Reservation("Barber","JoanJanku",date,date );
+    }
+
     @Test
-    void testValidations(){
-        ReservationRepoImpl impl = new ReservationRepoImpl();
-        List<User> users = new ArrayList<>();
-        List<ShopService> shopServiceList = new ArrayList<>();
-
-        users.add(new User("joan","janku","email"));
-        users.add(new User("john","doe","email2"));
-        users.add(new User("Jim","Carry","emailJIm"));
-
-        shopServiceList.add(new ShopService("barber",2.0,"blabalbl"));
-        shopServiceList.add(new ShopService("mechanic",2.0,"blabalbl"));
-        shopServiceList.add(new ShopService("medic",20.0,"blabalbl"));
-        //user existance tests
-        assertTrue(impl.existsUser(users,new Reservation("barber","joanjanku",
-                LocalDateTime.of(2021,3,11,16,35),
-                LocalDateTime.of(2021,3,11,16,35))));
-        assertFalse( impl.existsUser(users,new Reservation("barber","xhim",
-                LocalDateTime.of(2021,3,11,16,35),
-                LocalDateTime.of(2021,3,11,16,35))));
-        // service existance tests
-        assertTrue(impl.existsService(shopServiceList,new Reservation("barber","xhim",
-                LocalDateTime.of(2021,3,11,16,35),
-                LocalDateTime.of(2021,3,11,16,35))));
-        assertFalse(impl.existsService(shopServiceList,new Reservation("mjek","xhim",
-                LocalDateTime.of(2021,3,11,16,35),
-                LocalDateTime.of(2021,3,11,16,35))));
+    void testReservationService(){
+        when(reservationService.addReservation(reservation)).thenReturn(reservation);
+        assertNotNull(reservationService.addReservation(reservation));
+        assertNull(reservationService.addReservation((new Reservation("Barber","JoanJanku",date,date ))));
     }
 }
