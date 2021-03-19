@@ -4,23 +4,23 @@ package com.shopboot;
 
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shopboot.entity.UserEntity;
 import com.shopboot.repository.UserRepository;
 
 
 @SpringBootTest
+@Transactional
 public class UserRepositoryTest {
 
 	@Autowired
 	private UserRepository userRepository;
 
 	@Test
-	@Order(1)
 	public void givenUsername_whenRetrieved_thenGetUserData() {
 		UserEntity user = UserUtil.createUser();
 		userRepository.addUser(user);
@@ -32,9 +32,9 @@ public class UserRepositoryTest {
 	}
 	
 	@Test
-	@Order(2)
 	public void givenUser_whenUpdate_thenGetUpdatedUser() {
-		UserEntity user = userRepository.getUserByUsername("test123");
+		UserEntity user = UserUtil.createUser();
+		userRepository.addUser(user);
 		user.setFirstName("testUpdate");
 		
 		userRepository.updateUser(user);
@@ -43,7 +43,6 @@ public class UserRepositoryTest {
 	}
 	
 	@Test
-	@Order(3)
 	public void givenUser_whenSave_thenGetCreatedUser() {
 		Integer userSize = userRepository.getAllUsers().size();
 		UserEntity user = UserUtil.createUserAdmin();
@@ -55,7 +54,6 @@ public class UserRepositoryTest {
 	}
 	
 	@Test
-	@Order(4)
 	public void givenWrongUsername_whenRetrieved_thenGetNoResult() {
 		String username = "test";
 		
@@ -66,9 +64,9 @@ public class UserRepositoryTest {
 	
 	
 	@Test
-	@Order(5)
 	public void givenUser_whenSoftDelete_thenGetNoResult() {
-		UserEntity user = userRepository.getUserByUsername("admin123");
+		UserEntity user = UserUtil.createUserAdmin();
+		userRepository.addUser(user);
 
 		userRepository.softDeleteUser(user);
 		

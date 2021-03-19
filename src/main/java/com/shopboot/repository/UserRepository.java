@@ -45,6 +45,7 @@ public class UserRepository {
 		}
 	}
 	
+	
 	public void addUser(UserEntity user) {
 		entityManager.persist(user);
 	}

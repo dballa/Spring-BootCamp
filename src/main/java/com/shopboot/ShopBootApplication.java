@@ -26,17 +26,17 @@ public class ShopBootApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<UserEntity> users = userRepository.getAllUsers();
-		for (UserEntity userEntity : users) {
-			for (RoleEntity role : userEntity.getRoles()) {
-			}		
-		}
-		
-//		List<UserEntity> users = userRepository.getAllUsersFetched();
+//		List<UserEntity> users = userRepository.getAllUsers();
 //		for (UserEntity userEntity : users) {
 //			for (RoleEntity role : userEntity.getRoles()) {
 //			}		
 //		}
+		
+		List<UserEntity> users = userRepository.getAllUsersFetched();
+		for (UserEntity userEntity : users) {
+			for (RoleEntity role : userEntity.getRoles()) {
+			}		
+		}
 	}
 
 	public static UserEntity createUser() {
@@ -50,4 +50,5 @@ public class ShopBootApplication implements CommandLineRunner{
 		user.setCreatedOn(LocalDateTime.now());
 		return user;
 	}
+	
 }
