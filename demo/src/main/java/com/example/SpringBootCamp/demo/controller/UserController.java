@@ -30,5 +30,10 @@ public class UserController {
 		
 		return UserConverter.toDto(userSevice.addUser(user));
 	}
+	
+	@PostMapping("/testTransaction")
+	public void testTransaction() {
+		userSevice.testTransaction();
+	}
 
 }

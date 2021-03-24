@@ -3,6 +3,7 @@ package com.example.SpringBootCamp.demo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.SpringBootCamp.demo.converter.UserConverter;
 import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
@@ -14,6 +15,7 @@ import com.example.SpringBootCamp.demo.repository.UserRepository;
 import com.example.SpringBootCamp.demo.service.UserService;
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -78,6 +80,24 @@ public class UserServiceImpl implements UserService {
 			System.out.println("User not found");
 			throw new CustomUserException(id);
 		}
+	}
+	public void addUserWithException(UserEntity user) {
+	
+		userRepository.addUser(user);
+		throw new RuntimeException();
+	}
+	
+	public void testTransaction() {
+		SubscriptionEntity subEntity=new SubscriptionEntity();
+		subEntity.setActive(true);
+		subEntity.setName("TestTransaction");
+		subscriptionRepository.addSubscription(subEntity);
+		UserEntity userEntity=new UserEntity();
+		userEntity.setFirstName("test");
+		userEntity.setAge(20);
+		userEntity.setLastName("test");
+		
+		addUserWithException(userEntity);
 	}
 
 }

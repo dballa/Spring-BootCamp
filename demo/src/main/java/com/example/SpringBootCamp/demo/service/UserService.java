@@ -8,5 +8,7 @@ public interface UserService {
 	public UserEntity addUser(UserDtoForCreate user);
 	
 	public void deleteUser(long id);
+	
+	public void testTransaction();
 
 }
