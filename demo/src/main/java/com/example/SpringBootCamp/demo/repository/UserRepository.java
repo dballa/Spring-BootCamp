@@ -3,6 +3,7 @@ package com.example.SpringBootCamp.demo.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,23 @@ public class UserRepository {
 	public List<UserEntity> getAllUsers() {
 		TypedQuery<UserEntity> query = entityManager.createNamedQuery("User.findAll", UserEntity.class);
 		return query.getResultList();
+	}
+	public UserEntity getUserById(Long id) {
+		TypedQuery<UserEntity> query=entityManager.createQuery("SELECT user from UserEntity user where user.id=?1", UserEntity.class).setParameter(1, id);
+		try {
+			return query.getSingleResult();
+			
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	public void deleteUser(UserEntity user) {
+		entityManager.remove(user);
+	}
+	public void addUser(UserEntity user) {
+		
+		entityManager.persist(user);
+		
+		
 	}
 }
