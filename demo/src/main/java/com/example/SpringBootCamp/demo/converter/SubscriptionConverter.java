@@ -6,7 +6,7 @@ import com.example.SpringBootCamp.demo.entity.SubscriptionEntity;
 public class SubscriptionConverter {
 
 	
-	public SubscriptionDto toDto(SubscriptionEntity entity) {
+	public static SubscriptionDto toDto(SubscriptionEntity entity) {
 		SubscriptionDto toReturn=new SubscriptionDto();
 		toReturn.setId(entity.getId());
 		toReturn.setName(entity.getName());
@@ -14,7 +14,7 @@ public class SubscriptionConverter {
 		return toReturn;
 	}
 	
-	public SubscriptionEntity toEntity (SubscriptionDto dto) {
+	public static SubscriptionEntity toEntity (SubscriptionDto dto) {
 		SubscriptionEntity toReturn=new SubscriptionEntity();
 		toReturn.setId(dto.getId());
 		toReturn.setName(dto.getName());

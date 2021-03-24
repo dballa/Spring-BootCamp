@@ -4,16 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.example.SpringBootCamp.demo.converter.UserConverter;
+import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
+import com.example.SpringBootCamp.demo.entity.SubscriptionEntity;
 import com.example.SpringBootCamp.demo.entity.UserEntity;
 import com.example.SpringBootCamp.demo.exceptions.CustomUserException;
+import com.example.SpringBootCamp.demo.repository.SubscriptionRepository;
 import com.example.SpringBootCamp.demo.repository.UserRepository;
 import com.example.SpringBootCamp.demo.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	SubscriptionRepository subscriptionRepository;
 
 	@Value("${ageAllowedToDelete}")
 	private int ageAllowedToDelete;
@@ -21,13 +27,17 @@ public class UserServiceImpl implements UserService{
 	@Value("${ageAllowedToAdd}")
 	private int ageAllowedToAdd;
 
-	public UserEntity addUser(UserEntity user) {
+	public UserEntity addUser(UserDtoForCreate user) {
 		if (user != null) {
 			if (user.getFirstName() != null) {
 				if (user.getLastName() != null) {
 					if (user.getAge() > ageAllowedToAdd) {
-						userRepository.addUser(user);
-						return user;
+						SubscriptionEntity subscriptionFound = subscriptionRepository
+								.getSubscriptionById(user.getSubscription());
+						UserEntity userToAdd = UserConverter.toEntityForCreate(user, subscriptionFound);
+
+						userRepository.addUser(userToAdd);
+						return userToAdd;
 					} else {
 						System.out.println("Registration not allowed because minimal age is " + ageAllowedToAdd
 								+ " but user to add age is " + user.getAge());
