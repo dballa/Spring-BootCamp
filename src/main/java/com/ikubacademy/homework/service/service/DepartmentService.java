@@ -11,4 +11,5 @@ public interface DepartmentService {
     public DepartmentDTO addDepartment(DepartmentDtoCreate departmentDtoCreate);
     public List<DepartmentEntity> getAllDepartments();
     public DepartmentDTO getDepartment(String name);
+    public DepartmentDTO getDepartment(Long id);
 }

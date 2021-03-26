@@ -30,4 +30,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDTO getDepartment(String name) {
         return DepartmentConverter.toDepartmentDto(departmentRepository.getDepartment(name));
     }
+
+    @Override
+    public DepartmentDTO getDepartment(Long id) {
+        return DepartmentConverter.toDepartmentDto(departmentRepository.getDepartmentFromId(id));
+    }
 }

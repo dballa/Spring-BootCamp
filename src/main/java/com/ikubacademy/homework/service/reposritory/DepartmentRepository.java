@@ -17,6 +17,7 @@ public class DepartmentRepository {
     EntityManager entityManager;
     private final String GET_ALL_QUERY = "SELECT d from DepartmentEntity d";
     private final String GET_DEPARTMENT_WITH_NAME = "SELECT d from DepartmentEntity d where d.departmentName = :name";
+    private final String GET_DEPARTMENT_WITH_ID = "SELECT d from DepartmentEntity d where d.id = :id";
 
     public List<DepartmentEntity> getAllEntities(){
         TypedQuery<DepartmentEntity> query = entityManager.createQuery(GET_ALL_QUERY,DepartmentEntity.class);
@@ -30,5 +31,15 @@ public class DepartmentRepository {
     public DepartmentEntity addDepartment(DepartmentEntity departmentEntity){
          entityManager.persist(departmentEntity);
          return departmentEntity;
+    }
+    public DepartmentEntity getDepartmentFromId(Long id){
+        TypedQuery<DepartmentEntity> getDepWithIdQuery =
+                entityManager.createQuery(GET_DEPARTMENT_WITH_ID,DepartmentEntity.class).setParameter("id",id);
+        return getDepWithIdQuery.getSingleResult();
+    }
+    public boolean existsDepartment(Long id){
+        TypedQuery<DepartmentEntity> getDepWithIdQuery =
+        entityManager.createQuery(GET_DEPARTMENT_WITH_ID,DepartmentEntity.class).setParameter("id",id);
+        return getDepWithIdQuery.getResultList().size() == 1;
     }
 }

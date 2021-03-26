@@ -17,4 +17,10 @@ public class DepartmentConverter {
         departmentDTO.setName(departmentEntity.getDepartmentName());
         return departmentDTO;
     }
+    public static DepartmentEntity toDepartmentEntity(DepartmentDTO departmentDtoCreate){
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+        departmentEntity.setId(departmentDtoCreate.getId());
+        departmentEntity.setDepartmentName(departmentDtoCreate.getName());
+        return departmentEntity;
+    }
 }
