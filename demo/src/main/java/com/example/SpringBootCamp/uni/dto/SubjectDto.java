@@ -15,7 +15,7 @@ public class SubjectDto {
     private String name;
     private boolean active;
     private Double creditsCfu;
-    private Long semester;
+    private Integer semester;
     private Double total_hours;
     private ProfessorEntity professor;
 }

@@ -29,10 +29,10 @@ public class SubjectEntity {
 	private Double creditsCfu;
 
 	@Column(name = "semester")
-	private Long semester;
+	private Integer semester;
 
-	@Column(name = "totalHours")
-	private Double total_hours;
+	@Column(name = "total_hours")
+	private Double totalHours;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="professor_id" , referencedColumnName = "id")

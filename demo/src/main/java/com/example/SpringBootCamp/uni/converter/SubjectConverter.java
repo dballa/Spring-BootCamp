@@ -28,12 +28,12 @@ public class SubjectConverter {
         toReturn.setSemester(dto.getSemester());
         return toReturn;
     }
-    public static SubjectEntity toEntityForCreate(SubjectDtoForCreate dto, ProfessorEntity subEntity) {
-        SubjectEntity toReturn=new SubjectEntity();
+    public static SubjectDtoForCreate toEntityForCreate(SubjectDtoForCreate dto, ProfessorEntity professorEntity) {
+        SubjectDtoForCreate toReturn=new SubjectDtoForCreate();
         toReturn.setName(dto.getName());
         toReturn.setActive(dto.isActive());
         toReturn.setCreditsCfu(dto.getCreditsCfu());
-        toReturn.setProfessor(subEntity);
+        toReturn.setProfessorId(professorEntity.getId());
         toReturn.setSemester(dto.getSemester());
         return toReturn;
     }

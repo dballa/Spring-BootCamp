@@ -13,6 +13,7 @@ create table subject
 (
     id INT AUTO_INCREMENT  PRIMARY KEY,
     professor_id integer not null,
+    active boolean not null,
     name character varying(100) not null,
     credits_cfu numeric not null,
     semester integer,
@@ -28,6 +29,6 @@ INSERT INTO professor (first_name, last_name) VALUES
 ('Folrunsho', 'Alakija');
 
 
-insert into subject(professor_id, name, credits_cfu, semester, total_hours) values
-(1,'Algoritmike',5,1,15),
-(1,'Programim',5,2,15);
+insert into subject(professor_id,active, name, credits_cfu, semester, total_hours) values
+(1,true,'Algoritmike',5,1,15),
+(1,false,'Programim',5,2,15);
