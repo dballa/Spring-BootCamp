@@ -27,4 +27,5 @@ insert into subscriptions(name,active) values
 INSERT INTO users (first_name, last_name, age,subscriptionId) VALUES
   ('Aliko', 'Dangote', 10,1),
   ('Bill', 'Gates', 30,1),
+  ('Bill', 'Gas', 30,1),
   ('Folrunsho', 'Alakija', 40,1);

@@ -1,5 +1,7 @@
 package com.example.SpringBootCamp.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ import com.example.SpringBootCamp.demo.repository.UserRepository;
 import com.example.SpringBootCamp.demo.service.UserService;
 
 @Service
-
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -31,30 +33,21 @@ public class UserServiceImpl implements UserService {
 
 	public UserEntity addUser(UserDtoForCreate user) {
 		if (user != null) {
-			if (user.getFirstName() != null) {
-				if (user.getLastName() != null) {
-					if (user.getAge() > ageAllowedToAdd) {
-						SubscriptionEntity subscriptionFound = subscriptionRepository
-								.getSubscriptionById(user.getSubscription());
-						UserEntity userToAdd = UserConverter.toEntityForCreate(user, subscriptionFound);
 
-						userRepository.addUser(userToAdd);
-						return userToAdd;
-					} else {
-						System.out.println("Registration not allowed because minimal age is " + ageAllowedToAdd
-								+ " but user to add age is " + user.getAge());
-						throw new CustomUserException("Could not register user");
-					}
-				} else {
-					System.out.println("Last name is mandatory");
-					throw new CustomUserException("Last name is mandatory");
+			if (user.getAge() > ageAllowedToAdd) {
+				SubscriptionEntity subscriptionFound = subscriptionRepository
+						.getSubscriptionById(user.getSubscription());
+				UserEntity userToAdd = UserConverter.toEntityForCreate(user, subscriptionFound);
 
-				}
+				userRepository.addUser(userToAdd);
+				return userToAdd;
 			} else {
-				System.out.println("First name is mandatory");
-				throw new CustomUserException("First name is mandatory");
+
+				throw new CustomUserException("Registration not allowed because minimal age is " + ageAllowedToAdd
+						+ " but user to add age is " + user.getAge());
 			}
 		}
+
 		return null;
 	}
 
@@ -66,9 +59,8 @@ public class UserServiceImpl implements UserService {
 					userRepository.deleteUser(user);
 
 				} else {
-					System.out.println("Could not delete user, age allowed to delete id " + ageAllowedToDelete
+					throw new CustomUserException("Could not delete user, age allowed to delete id " + ageAllowedToDelete
 							+ " but user age id " + user.getAge());
-					throw new CustomUserException(id);
 				}
 
 			} else {
@@ -81,23 +73,33 @@ public class UserServiceImpl implements UserService {
 			throw new CustomUserException(id);
 		}
 	}
+
 	public void addUserWithException(UserEntity user) {
-	
+
 		userRepository.addUser(user);
 		throw new RuntimeException();
 	}
-	
+
 	public void testTransaction() {
-		SubscriptionEntity subEntity=new SubscriptionEntity();
+		SubscriptionEntity subEntity = new SubscriptionEntity();
 		subEntity.setActive(true);
 		subEntity.setName("TestTransaction");
 		subscriptionRepository.addSubscription(subEntity);
-		UserEntity userEntity=new UserEntity();
+		UserEntity userEntity = new UserEntity();
 		userEntity.setFirstName("test");
 		userEntity.setAge(20);
 		userEntity.setLastName("test");
-		
+
 		addUserWithException(userEntity);
+	}
+
+	@Override
+	public List<UserEntity> getUsers(String name) {
+		if (name != null && !name.isEmpty())
+
+			return userRepository.getFilterByName(name);
+		else
+			return userRepository.getAllUsers();
 	}
 
 }

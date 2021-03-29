@@ -40,4 +40,9 @@ public class UserRepository {
 		
 		
 	}
+	public List<UserEntity> getFilterByName(String name) {
+		TypedQuery<UserEntity> query = entityManager.createQuery("SELECT user from UserEntity user where user.firstName=?1", UserEntity.class).setParameter(1, name);
+		return query.getResultList();
+	}
+
 }

@@ -8,9 +8,11 @@ public class SubscriptionConverter {
 	
 	public static SubscriptionDto toDto(SubscriptionEntity entity) {
 		SubscriptionDto toReturn=new SubscriptionDto();
+		if(entity !=null) {
 		toReturn.setId(entity.getId());
 		toReturn.setName(entity.getName());
 		toReturn.setActive(entity.isActive());
+		}
 		return toReturn;
 	}
 	
