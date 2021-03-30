@@ -14,5 +14,7 @@ public interface UserService {
 	public void testTransaction();
 	
 	public List<UserEntity> getUsers(String name);
+	
+	public void testRest();
 
 }

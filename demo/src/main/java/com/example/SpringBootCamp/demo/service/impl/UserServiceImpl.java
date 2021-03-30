@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.SpringBootCamp.demo.converter.UserConverter;
+import com.example.SpringBootCamp.demo.dto.ResponseTestExternalAPI;
 import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
 import com.example.SpringBootCamp.demo.entity.SubscriptionEntity;
 import com.example.SpringBootCamp.demo.entity.UserEntity;
@@ -24,12 +29,16 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 	@Autowired
 	SubscriptionRepository subscriptionRepository;
+	@Autowired
+	RestTemplate restTemplate;
 
 	@Value("${ageAllowedToDelete}")
 	private int ageAllowedToDelete;
 
 	@Value("${ageAllowedToAdd}")
 	private int ageAllowedToAdd;
+	
+	private String URL="https://jsonplaceholder.typicode.com/todos/1";
 
 	public UserEntity addUser(UserDtoForCreate user) {
 		if (user != null) {
@@ -100,6 +109,16 @@ public class UserServiceImpl implements UserService {
 			return userRepository.getFilterByName(name);
 		else
 			return userRepository.getAllUsers();
+	}
+
+	@Override
+	public void testRest() {
+		//HttpEntity<Re>
+		ResponseEntity<ResponseTestExternalAPI> response=restTemplate.exchange(URL, HttpMethod.GET, null, ResponseTestExternalAPI.class);
+		
+		ResponseTestExternalAPI a=response.getBody();
+		
+		System.out.println(a);
 	}
 
 }

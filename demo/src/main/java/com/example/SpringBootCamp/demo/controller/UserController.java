@@ -22,6 +22,8 @@ import com.example.SpringBootCamp.demo.dto.UserDto;
 import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
 import com.example.SpringBootCamp.demo.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class UserController {
 
@@ -35,6 +37,7 @@ public class UserController {
 
 	}
 
+	@ApiOperation(value="Add a new user")
 	@PostMapping("/users")
 	public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDtoForCreate user) {
 		
@@ -58,6 +61,9 @@ public class UserController {
 		userSevice.testTransaction();
 	}
 
-	
+	@GetMapping("/testRestTemplate")
+	public void testRest(){
+		userSevice.testRest();
+	}
 
 }
