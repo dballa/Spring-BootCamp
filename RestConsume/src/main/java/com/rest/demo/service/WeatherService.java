@@ -48,6 +48,5 @@ public class WeatherService {
 		
 		return weatherDto;
 	}
-	
-	//https://api.openweathermap.org/data/2.5/weather?q=Tirana&appid=2bff0a2c8db398c69b8d1a56475fdb4f&units=metric
+
 }
