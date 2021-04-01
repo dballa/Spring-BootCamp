@@ -2,6 +2,8 @@ package com.example.SpringBootCamp.demo.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.SpringBootCamp.demo.controller.UserController;
 import com.example.SpringBootCamp.demo.converter.UserConverter;
 import com.example.SpringBootCamp.demo.dto.ResponseTestExternalAPI;
 import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
@@ -37,13 +40,16 @@ public class UserServiceImpl implements UserService {
 
 	@Value("${ageAllowedToAdd}")
 	private int ageAllowedToAdd;
-	
-	private String URL="https://jsonplaceholder.typicode.com/todos/1";
+
+	private String URL = "https://jsonplaceholder.typicode.com/todos/1";
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	public UserEntity addUser(UserDtoForCreate user) {
+		logger.info("Adding user {}", user);
 		if (user != null) {
 
 			if (user.getAge() > ageAllowedToAdd) {
+
 				SubscriptionEntity subscriptionFound = subscriptionRepository
 						.getSubscriptionById(user.getSubscription());
 				UserEntity userToAdd = UserConverter.toEntityForCreate(user, subscriptionFound);
@@ -68,8 +74,8 @@ public class UserServiceImpl implements UserService {
 					userRepository.deleteUser(user);
 
 				} else {
-					throw new CustomUserException("Could not delete user, age allowed to delete id " + ageAllowedToDelete
-							+ " but user age id " + user.getAge());
+					throw new CustomUserException("Could not delete user, age allowed to delete id "
+							+ ageAllowedToDelete + " but user age id " + user.getAge());
 				}
 
 			} else {
@@ -113,11 +119,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void testRest() {
-		//HttpEntity<Re>
-		ResponseEntity<ResponseTestExternalAPI> response=restTemplate.exchange(URL, HttpMethod.GET, null, ResponseTestExternalAPI.class);
-		
-		ResponseTestExternalAPI a=response.getBody();
-		
+		// HttpEntity<Re>
+		ResponseEntity<ResponseTestExternalAPI> response = restTemplate.exchange(URL, HttpMethod.GET, null,
+				ResponseTestExternalAPI.class);
+
+		ResponseTestExternalAPI a = response.getBody();
+
 		System.out.println(a);
 	}
 
