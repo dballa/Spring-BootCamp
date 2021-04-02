@@ -9,17 +9,10 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-
-public class BookDto {
-
-	private Long id;
-
+public class PublisherDtoForUpdate {
+	
 	private String name;
 
-	private int price;
-	
-	private int rate;
-	
-	private PublisherDto publisher;
+	private String address;
 
 }

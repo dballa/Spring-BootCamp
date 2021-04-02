@@ -1,4 +1,4 @@
-package com.book.Entity;
+package com.book.entity;
 
 import java.io.Serializable;
 
@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -16,6 +17,11 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "publisher")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@NamedQuery(name = "Publisher.findAll", query = "SELECT publisher FROM PublisherEntity publisher ")
 public class PublisherEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,33 +36,6 @@ public class PublisherEntity implements Serializable {
     @Column(name = "address")
     private String address;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	@Override
-	public String toString() {
-		return "PublisherEntity [id=" + id + ", name=" + name + ", address=" + address + "]";
-	}
 
 }

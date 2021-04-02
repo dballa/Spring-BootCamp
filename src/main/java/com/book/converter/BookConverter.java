@@ -1,9 +1,10 @@
 package com.book.converter;
 
-import com.book.Entity.BookEntity;
-import com.book.Entity.PublisherEntity;
 import com.book.dto.BookDto;
 import com.book.dto.BookDtoForCreate;
+import com.book.dto.BookDtoForUpdate;
+import com.book.entity.BookEntity;
+import com.book.entity.PublisherEntity;
 
 public class BookConverter {
 	
@@ -32,6 +33,12 @@ public class BookConverter {
 		toReturn.setPrice(dto.getPrice());
 		toReturn.setRate(dto.getRate());
 		toReturn.setPublisher(pubEntity);
+		return toReturn;
+	}
+	public static BookEntity toEntityForUpdate(BookDtoForUpdate dto) {
+		BookEntity toReturn=new BookEntity();
+		toReturn.setName(dto.getName());
+		toReturn.setPrice(dto.getPrice());
 		return toReturn;
 	}
 }
