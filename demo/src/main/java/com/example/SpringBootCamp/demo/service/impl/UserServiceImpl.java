@@ -17,6 +17,7 @@ import com.example.SpringBootCamp.demo.controller.UserController;
 import com.example.SpringBootCamp.demo.converter.UserConverter;
 import com.example.SpringBootCamp.demo.dto.ResponseTestExternalAPI;
 import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
+import com.example.SpringBootCamp.demo.dto.UserFilter;
 import com.example.SpringBootCamp.demo.entity.SubscriptionEntity;
 import com.example.SpringBootCamp.demo.entity.UserEntity;
 import com.example.SpringBootCamp.demo.exceptions.CustomUserException;
@@ -55,9 +56,11 @@ public class UserServiceImpl implements UserService {
 				UserEntity userToAdd = UserConverter.toEntityForCreate(user, subscriptionFound);
 
 				userRepository.addUser(userToAdd);
+				logger.info("User added");
 				return userToAdd;
 			} else {
-
+				logger.warn("Registration not allowed because minimal age is {}  but user to add age is {}",
+						ageAllowedToAdd, user.getAge());
 				throw new CustomUserException("Registration not allowed because minimal age is " + ageAllowedToAdd
 						+ " but user to add age is " + user.getAge());
 			}
@@ -79,12 +82,12 @@ public class UserServiceImpl implements UserService {
 				}
 
 			} else {
-				System.out.println("Could not delete user because has an active subscription");
+				logger.warn("Could not delete user because has an active subscription");
 				throw new CustomUserException(id);
 			}
 
 		} else {
-			System.out.println("User not found");
+			logger.warn("User not found");
 			throw new CustomUserException(id);
 		}
 	}
@@ -109,12 +112,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserEntity> getUsers(String name) {
-		if (name != null && !name.isEmpty())
+	public List<UserEntity> getUsers(UserFilter filter) {
 
-			return userRepository.getFilterByName(name);
-		else
-			return userRepository.getAllUsers();
+		logger.info("Filtring users with filter {}", filter);
+		return userRepository.getUsers(filter);
+
 	}
 
 	@Override

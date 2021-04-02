@@ -3,6 +3,7 @@ package com.example.SpringBootCamp.demo.service;
 import java.util.List;
 
 import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
+import com.example.SpringBootCamp.demo.dto.UserFilter;
 import com.example.SpringBootCamp.demo.entity.UserEntity;
 
 public interface UserService {
@@ -13,7 +14,7 @@ public interface UserService {
 	
 	public void testTransaction();
 	
-	public List<UserEntity> getUsers(String name);
+	public List<UserEntity> getUsers(UserFilter filter);
 	
 	public void testRest();
 

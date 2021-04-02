@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.SpringBootCamp.demo.converter.UserConverter;
 import com.example.SpringBootCamp.demo.dto.UserDto;
 import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
+import com.example.SpringBootCamp.demo.dto.UserFilter;
 import com.example.SpringBootCamp.demo.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -37,32 +38,31 @@ public class UserController {
 
 	}
 
-	@ApiOperation(value="Add a new user")
+	@ApiOperation(value = "Add a new user")
 	@PostMapping("/users")
 	public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDtoForCreate user) {
-		
-		
-		return new ResponseEntity<>(UserConverter.toDto(userSevice.addUser(user)),HttpStatus.CREATED);
+
+		return new ResponseEntity<>(UserConverter.toDto(userSevice.addUser(user)), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/users")
-	public ResponseEntity<List<UserDto>> getUsers(@RequestParam(required=false) String name ){
-		List<UserDto>toReturn=new ArrayList<UserDto>();
-		userSevice.getUsers(name).forEach(entity->toReturn.add(UserConverter.toDto(entity)));
-		return new ResponseEntity<List<UserDto>>(toReturn,HttpStatus.OK) ;
-		
+	public ResponseEntity<List<UserDto>> getUsers(@RequestParam(required = false) String name,
+			@RequestParam(required = false) String lastName, @RequestParam(required = false) Integer age,
+			@RequestParam(required = false) String sortBy, @RequestParam(required = false) String order) {
+		List<UserDto> toReturn = new ArrayList<UserDto>();
+		UserFilter filter = new UserFilter(name, lastName, age, sortBy, order);
+		userSevice.getUsers(filter).forEach(entity -> toReturn.add(UserConverter.toDto(entity)));
+		return new ResponseEntity<List<UserDto>>(toReturn, HttpStatus.OK);
+
 	}
-	
-	
-	
-	
+
 	@PostMapping("/testTransaction")
 	public void testTransaction() {
 		userSevice.testTransaction();
 	}
 
 	@GetMapping("/testRestTemplate")
-	public void testRest(){
+	public void testRest() {
 		userSevice.testRest();
 	}
 
