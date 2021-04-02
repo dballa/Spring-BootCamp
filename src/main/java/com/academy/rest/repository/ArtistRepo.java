@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -52,7 +53,12 @@ public class ArtistRepo {
         TypedQuery<ArtistEntity> allArtist = entityManager.createQuery(
                 GET_ARTIST,ArtistEntity.class
         ).setParameter(1,id);
-        return allArtist.getSingleResult();
+        try{
+            return allArtist.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+
     }
     public List<ArtistEntity> getArtistByAge(int age){
         TypedQuery<ArtistEntity> allArtist = entityManager.createQuery(
@@ -60,6 +66,7 @@ public class ArtistRepo {
         ).setParameter(1,age);
         return allArtist.getResultList();
     }
+    //for multiple return
     public List<Object[]> getArtistsWithNoOFAlbums(Long no){
         TypedQuery<Object[]> getArtists  =
                 entityManager.createQuery(GET_ARTISTS_No_ALBUM_CRITERIUM,Object[].class)

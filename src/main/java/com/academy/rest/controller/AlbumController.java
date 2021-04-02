@@ -1,5 +1,6 @@
 package com.academy.rest.controller;
 
+import com.academy.rest.dto.AlbumModel;
 import com.academy.rest.entities.AlbumEntity;
 import com.academy.rest.request.AlbumRequestForCreate;
 import com.academy.rest.service.AlbumService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -54,4 +56,11 @@ public class AlbumController {
     public ResponseEntity<List<AlbumEntity>> getAlbumsOfArtist(@RequestParam long id,@RequestParam String orderBy){
         return new ResponseEntity<>(albumService.getAlbumsOfArtistSorted(id,orderBy),HttpStatus.FOUND);
     }
+
+    @ApiOperation("Display a random album from an external url")
+    @GetMapping("/random")
+    public ResponseEntity<AlbumModel> get(){
+        return new ResponseEntity<>(albumService.getRandomAlbum(),HttpStatus.FOUND);
+    }
 }
+//http://localhost:8080/swagger-ui/index.html -> swagger

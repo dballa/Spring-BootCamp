@@ -1,14 +1,19 @@
 package com.academy.rest.service.implementation;
 
 import com.academy.rest.entities.ArtistEntity;
+import com.academy.rest.exceptions.ArtistNotFoundException;
 import com.academy.rest.repository.ArtistRepo;
 import com.academy.rest.request.ArtistRequestCreate;
 import com.academy.rest.service.ArtistServices;
+import com.academy.rest.utils.Error;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,8 +39,14 @@ public class ArtistServiceImplementation implements ArtistServices {
 
     @Override
     public ArtistEntity deleteArtist(long id) {
-        ArtistEntity artistEntity = getArtist(id);
-        return artistRepo.deleteArtist(artistEntity);
+        try{
+            ArtistEntity artistEntity = getArtist(id);
+            return artistRepo.deleteArtist(artistEntity);
+        } catch (ArtistNotFoundException e){
+            return null;
+        }
+
+
     }
 
     @Override
@@ -45,7 +56,12 @@ public class ArtistServiceImplementation implements ArtistServices {
 
     @Override
     public ArtistEntity getArtist(Long id) {
-        return artistRepo.getArtist(id);
+        ArtistEntity artistEntity = artistRepo.getArtist(id);
+        if (artistEntity==null)
+            throw new ArtistNotFoundException("The artist with the given ID wasn't found in our database");
+        return artistEntity;
+
+
     }
 
     @Override
@@ -66,6 +82,13 @@ public class ArtistServiceImplementation implements ArtistServices {
 
     @Override
     public List<Object[]> getArtistsWithNoOfAlbums(Long no) {
-        return artistRepo.getArtistsWithNoOFAlbums(no);
+        List<Object[]> artistEntities = artistRepo.getArtistsWithNoOFAlbums(no);
+        if (artistEntities.isEmpty()){
+            throw new ArtistNotFoundException(" Artist with such number of albums cannot be found ");
+        }
+        return artistEntities;
+
+
+
     }
 }

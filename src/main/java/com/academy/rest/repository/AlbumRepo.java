@@ -30,7 +30,8 @@ public class AlbumRepo {
     private static String GET_ALBUMS_SORTED_BY_YEAR_DESC = "select album from AlbumEntity album " +
             " where album.artistEntity.id = ?1" +
             " order by album.releaseYear DESC";
-
+    private static final String GET_ALBUMS_OF_GENRE = "select album from AlbumEntity album " +
+            " where album.genre = :genre" ;
     public void addAlbum(AlbumEntity albumEntity){
         entityManager.persist(albumEntity);
     }
@@ -63,6 +64,12 @@ public class AlbumRepo {
         return albumEntityTypedQuery.getResultList();
     }
 
+    public List<AlbumEntity> getAlbumByGenre(String genre){
+        TypedQuery<AlbumEntity> albumEntityTypedQuery =
+                entityManager.createQuery(GET_ALBUMS_OF_GENRE,AlbumEntity.class)
+                .setParameter("genre",genre);
+        return albumEntityTypedQuery.getResultList();
+    }
     public boolean deleteAlbum(AlbumEntity albumEntity){
         try{
             entityManager.remove(albumEntity);

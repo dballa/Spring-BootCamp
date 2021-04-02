@@ -1,8 +1,10 @@
 package com.academy.rest.service.implementation;
 
 import com.academy.rest.converter.ArtistConverter;
+import com.academy.rest.dto.AlbumModel;
 import com.academy.rest.dto.ArtistModel;
 import com.academy.rest.entities.AlbumEntity;
+import com.academy.rest.exceptions.AlbumNotFoundException;
 import com.academy.rest.exceptions.ArtistNotFoundException;
 import com.academy.rest.repository.AlbumRepo;
 import com.academy.rest.request.AlbumRequestForCreate;
@@ -102,6 +104,25 @@ public class AlbumServiceImplementation implements AlbumService {
         }
         throw new IllegalArgumentException("The provided argument in the url is not valid");
     }
+    @Override
+    public AlbumModel getRandomAlbum(){
+       RestTemplate restTemplate = new RestTemplate();
+       AlbumModel[] albumModels =
+               restTemplate.getForObject("https://api.mocki.io/v1/bb578855",
+                       AlbumModel[].class);
+       int i = (int)(Math.random()*albumModels.length);
+//       System.out.println(albumModels[1]);
+//       System.out.println(i);
+       return albumModels[i];
+   }
 
-   // https://github.com/joanjanku2000/portofolio/blob/restJSON/url.json
+    @Override
+    public List<AlbumEntity> getAlbumsOfGenre(String genre) {
+        List<AlbumEntity> albumEntities = albumRepo.getAlbumByGenre(genre);
+        if (albumEntities.isEmpty()){
+            throw new AlbumNotFoundException(" Albums of this genre weren't found \n try again please");
+        }
+        return albumEntities;
+    }
+
 }

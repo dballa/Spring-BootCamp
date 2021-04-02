@@ -22,7 +22,7 @@ public class ArtistController {
     @ApiOperation("Add a new User")
     @PostMapping
     public ResponseEntity<ArtistEntity> addArtist(@RequestBody ArtistRequestCreate artistRequestCreate){
-        return new ResponseEntity<>(artistServices.addArtist(artistRequestCreate),HttpStatus.FOUND);
+        return new ResponseEntity<>(artistServices.addArtist(artistRequestCreate),HttpStatus.CREATED);
     }
 
     @ApiOperation("Display all users")
