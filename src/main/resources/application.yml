@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    password: mausimj
+    url: jdbc:postgresql://localhost:5432/RestDb
+    username: postgres
+    platform: POSTGRESQL
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
