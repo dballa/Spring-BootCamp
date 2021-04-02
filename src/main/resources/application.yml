@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    password: root
+    url: jdbc:postgresql://localhost:5432/CC
+    username: postgres
+    platform: POSTGRESQL
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+server:
+  port: 8081
