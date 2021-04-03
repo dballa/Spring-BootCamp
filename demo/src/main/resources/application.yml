@@ -1,0 +1,18 @@
+spring:
+    datasource:
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/test1
+        username: postgres
+        platform: POSTGRESQL
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+      hibernate:
+         ddl-auto: none
+jwt:
+   secret: secret
+   clockSkew: 10
+   validFor: 36000
+      
+        
+
