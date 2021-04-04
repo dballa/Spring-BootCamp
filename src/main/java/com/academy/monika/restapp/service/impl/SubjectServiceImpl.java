@@ -2,6 +2,7 @@ package com.academy.monika.restapp.service.impl;
 
 import com.academy.monika.restapp.dto.EmployeeDto;
 import com.academy.monika.restapp.dto.ResponseTestExternalAPI;
+import com.academy.monika.restapp.dto.SubjectDto;
 import com.academy.monika.restapp.dto.SubjectDtoForCreate;
 import com.academy.monika.restapp.entity.ProfessorEntity;
 import com.academy.monika.restapp.entity.SubjectEntity;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
@@ -51,7 +53,7 @@ public class SubjectServiceImpl implements SubjectService {
         if(subject==null){
             throw new CustomException("Subject not found");
         }
-        if(subject.isActive()){
+        if(subject.getActive()){
             throw new CustomException("Active subject can not be deleted");
         }
         subjectRepository.deleteSubject(subject);
@@ -76,13 +78,14 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     public List<EmployeeDto> testRestApi() {
-        // HttpEntity<Re>
         ResponseEntity<ResponseTestExternalAPI> response = restTemplate.exchange("https://gorest.co.in/public-api/users", HttpMethod.GET, null,
                 ResponseTestExternalAPI.class);
         return response.getBody().getData();
-/*
-        ResponseTestExternalAPI a = response.getBody();
 
-        System.out.println(a.getData().get(0));*/
+    }
+
+    @Override
+    public List<SubjectEntity> getFilteredList(Map<String, String> allParams) {
+        return subjectRepository.getFilteredList(allParams);
     }
 }

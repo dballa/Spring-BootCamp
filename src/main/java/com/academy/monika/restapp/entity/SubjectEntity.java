@@ -23,7 +23,7 @@ public class SubjectEntity {
 	private String name;
 
 	@Column(nullable = false, name = "active")
-	private boolean active;
+	private Boolean active;
 
 	@Column(nullable = false, name = "credits_cfu")
 	private Double creditsCfu;
