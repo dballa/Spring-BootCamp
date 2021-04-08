@@ -1,25 +1,34 @@
 package dto;
 
 import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 
 
 public class UserToCreateDto {
 	
 	private int id;
-
+	
+	@NotBlank(message="First name is mandatory")
 	private String firstName;
-
+	
+	@NotBlank(message="Last name is mandatory")
 	private String lastName;
-
+	
+	@NotBlank(message="Birthdate is mandatory")
 	private LocalDate birthdate;
 	
+	@NotBlank(message="Username is mandatory")
 	private String username;
 	
+	@NotBlank(message="Password is mandatory")
 	private String password;
 	
 	private boolean enabled;
+	@NotBlank(message="Role is mandatory")
+
+	private long userRegistration;
 	
-	private RoleDto role;
+	private String role;
 
 	public int getId() {
 		return id;
@@ -77,11 +86,11 @@ public class UserToCreateDto {
 		this.enabled = enabled;
 	}
 
-	public RoleDto getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(RoleDto role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

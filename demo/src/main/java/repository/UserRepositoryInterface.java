@@ -2,6 +2,7 @@ package repository;
 
 import java.util.List;
 
+import dto.UserFilter;
 import entity.UserEntity;
 
 public interface UserRepositoryInterface {
@@ -23,5 +24,9 @@ public interface UserRepositoryInterface {
 	void softDeleteUser(UserEntity user);
 
 	void hardDeleteUser(UserEntity user);
+
+	List<UserEntity> getUserByName(String name);
+
+	List<UserEntity> getUsers(UserFilter filter);
 
 }

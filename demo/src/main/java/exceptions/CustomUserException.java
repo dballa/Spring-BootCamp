@@ -1,4 +1,4 @@
-package util;
+package exceptions;
 
 public class CustomUserException extends RuntimeException {
 	
@@ -7,4 +7,7 @@ public class CustomUserException extends RuntimeException {
 	public CustomUserException(String message) {
 		    super(message);
 		  }
+	public CustomUserException(int id) {
+	    super("Could not delete User with id: " + id);
+	  }
 }
