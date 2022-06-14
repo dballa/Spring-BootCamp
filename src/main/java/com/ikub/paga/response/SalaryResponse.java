@@ -3,7 +3,7 @@ package com.ikub.paga.response;
 import org.springframework.context.annotation.Profile;
 
 @Profile("dev")
-public class SalaryResponseDev {
+public class SalaryResponse {
     private double salaryNeto;
 
     public double getSalaryNeto() {

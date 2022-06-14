@@ -1,35 +1,35 @@
 package com.ikub.paga.web;
 
 import com.ikub.paga.request.SalaryRequest;
-import com.ikub.paga.response.SalaryResponseDev;
-import com.ikub.paga.service.SalaryServiceDev;
+import com.ikub.paga.response.SalaryResponse;
+import com.ikub.paga.service.SalaryService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-@Profile("dev")
+
 @RestController
 @RequestMapping("/bruto")
-public class SalaryResourceDev {
+public class SalaryResource {
 
-    private SalaryServiceDev service;
+    private SalaryService service;
 
     @Value("${spring.mode}")
     private String appType;
 
-    public SalaryResourceDev(SalaryServiceDev service){
+    public SalaryResource(SalaryService service){
         this.service = service;
     }
 
     @PostMapping
-    public SalaryResponseDev getNeto(@RequestBody SalaryRequest request){
+    public SalaryResponse getNeto(@RequestBody SalaryRequest request){
         System.out.println(request+ appType);
         return service.getNeto(request );
     }
 
     @PostMapping("/reqs")
-    public HashMap<SalaryRequest, SalaryResponseDev> getAll(){
+    public HashMap<SalaryRequest, SalaryResponse> getAll(){
         System.out.println("Printing everything" + appType);
         return service.getRequests();
     }

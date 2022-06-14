@@ -1,7 +1,7 @@
 package com.ikub.paga.service;
 
 import com.ikub.paga.request.SalaryRequest;
-import com.ikub.paga.response.SalaryResponseDev;
+import com.ikub.paga.response.SalaryResponse;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 @Profile("dev")
 @Component
-public class SalaryServiceDev {
+public class SalaryServiceDev implements SalaryService{
     private final double COEFFICIENT = 0.9;
 
-    public SalaryResponseDev getNeto(SalaryRequest request){
-        SalaryResponseDev response = new SalaryResponseDev();
+    public SalaryResponse getNeto(SalaryRequest request){
+        SalaryResponse response = new SalaryResponse();
         double netoSalary = request.getSalaryBruto()* COEFFICIENT;
         response.setSalaryNeto(netoSalary);
         RequestResponsesDev.getInstance().putRequestResponses(request,response);
         return response;
     }
 
-    public HashMap<SalaryRequest, SalaryResponseDev> getRequests(){
-        HashMap<SalaryRequest, SalaryResponseDev> allRequests
+    public HashMap<SalaryRequest, SalaryResponse> getRequests(){
+        HashMap<SalaryRequest, SalaryResponse> allRequests
                 = RequestResponsesDev.getInstance().getRequestResponses();
 
         return allRequests;
@@ -36,7 +36,7 @@ public class SalaryServiceDev {
         return sum/length;
     }
     public double averageNeto (){
-        HashMap<SalaryRequest, SalaryResponseDev> allRequests
+        HashMap<SalaryRequest, SalaryResponse> allRequests
                 = RequestResponsesDev.getInstance().getRequestResponses();
         ArrayList<Double> netos = new ArrayList<>();
         for (SalaryRequest name: allRequests.keySet()){

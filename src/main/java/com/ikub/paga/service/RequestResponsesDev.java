@@ -1,13 +1,13 @@
 package com.ikub.paga.service;
 
 import com.ikub.paga.request.SalaryRequest;
-import com.ikub.paga.response.SalaryResponseDev;
+import com.ikub.paga.response.SalaryResponse;
 
 import java.util.HashMap;
 
 
 public class RequestResponsesDev {
-    private  HashMap<SalaryRequest, SalaryResponseDev> requestResponses;
+    private  HashMap<SalaryRequest, SalaryResponse> requestResponses;
     private static RequestResponsesDev instance;
     private RequestResponsesDev(){
         requestResponses = new HashMap<>();
@@ -19,11 +19,11 @@ public class RequestResponsesDev {
         }
         return instance;
     }
-    public HashMap<SalaryRequest, SalaryResponseDev> getRequestResponses() {
+    public HashMap<SalaryRequest, SalaryResponse> getRequestResponses() {
         return requestResponses;
     }
 
-    public void putRequestResponses(SalaryRequest request, SalaryResponseDev response) {
+    public void putRequestResponses(SalaryRequest request, SalaryResponse response) {
        requestResponses.put(request,response);
     }
 
