@@ -1,5 +1,8 @@
 package com.ikubinfo.ioc.BMI;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BmiRequest {
 
     private double height;
