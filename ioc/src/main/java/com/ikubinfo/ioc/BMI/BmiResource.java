@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/bmi")
 public class BmiResource {
     BMIService service;
-        @Autowired
         @PostMapping
         private BmiResponse response (@RequestBody BmiRequest request) {
             return service.response(request);
