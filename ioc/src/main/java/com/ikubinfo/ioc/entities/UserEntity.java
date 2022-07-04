@@ -1,5 +1,7 @@
 package com.ikubinfo.ioc.entities;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -8,9 +10,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "users", schema = "public")
-@NamedQuery(name = "User.findAll", query = "SELECT user FROM UserEntity user where user.valid = true")
+@Where(clause = "valid=true or valid=null")
+@NamedQuery(name = "User.findAll", query = "SELECT user FROM UserEntity user ")
 public class UserEntity implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id

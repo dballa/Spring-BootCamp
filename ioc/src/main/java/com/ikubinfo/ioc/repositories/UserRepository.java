@@ -1,5 +1,6 @@
 package com.ikubinfo.ioc.repositories;
 
+import com.ikubinfo.ioc.entities.RoleEntity;
 import com.ikubinfo.ioc.entities.UserEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +16,16 @@ public class UserRepository {
 
 	private EntityManager entityManager;
 
-	public UserRepository(EntityManager entityManager) {
+	private RoleRepository roleRepository;
+
+
+	public UserRepository(EntityManager entityManager, RoleRepository roleRepository) {
 		super();
 		this.entityManager = entityManager;
+		this.roleRepository = roleRepository;
 	}
 
-	private static final String USER_BY_USERNAME = "SELECT user FROM UserEntity user where user.username =?1 and user.valid = true";
+	private static final String USER_BY_USERNAME = "SELECT user FROM UserEntity user where user.username =?1 ";
 
 	private static final String ALL_USERS_FETCHED = "SELECT user FROM UserEntity user LEFT JOIN FETCH user.roles";
 	
@@ -61,4 +66,10 @@ public class UserRepository {
 		entityManager.remove(user);
 	}
 
+	public void addRoleToUser(String username, Long roleId){
+		UserEntity user = getUserByUsername(username);
+		RoleEntity role = roleRepository.getRoleById(roleId);
+		user.getRoles().add(role);
+		entityManager.merge(user);
+	}
 }
