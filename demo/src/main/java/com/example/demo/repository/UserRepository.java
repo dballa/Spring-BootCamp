@@ -20,7 +20,7 @@ public class UserRepository {
 
 	public UserEntity findByUsername(String username) {
 		return new UserEntity(1, "klevis", "dasda", 3, "ADMIN", "admin123",
-				"$2a$10$Y3h3LZs51ZVuGeD8npzYUuTihKA6VI2tkBVt43nJUxeucA92Jh4eK");
+				"$2a$12$LVFi0pc9ahdKJcew3PMlCeWO.vbP6le/8nHefyL38Vjtq0y.WB.Zi");
 	}
 
 }
