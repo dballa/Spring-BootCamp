@@ -1,22 +1,19 @@
 package com.example.SpringBootCamp.demo.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.HttpHeaders;
+import com.example.SpringBootCamp.demo.dto.ErrorFormat;
+import com.example.SpringBootCamp.demo.exceptions.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import com.example.SpringBootCamp.demo.dto.ErrorFormat;
-import com.example.SpringBootCamp.demo.exceptions.CustomUserException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RestControllerAdvice
@@ -37,7 +34,7 @@ public class MyCustomExceptionHandler  {
 	    });
 	    return errors;
 	}
-	 @ExceptionHandler(value = { CustomUserException.class })
+	 @ExceptionHandler(value = { UserException.class })
 		    protected ResponseEntity<Object> handleCustomExceptions( RuntimeException ex, WebRequest request) {
 		       ErrorFormat errorBody=new ErrorFormat();
 		       errorBody.setMessage(ex.getMessage());

@@ -11,9 +11,10 @@ import lombok.ToString;
 @ToString
 public class UserFilter {
 
-	private String firstName;
-	private String lastName;
-	private Integer age;
-	private String sortBy;
-	private String order;
+    private String firstName;
+    private String lastName;
+    private Integer age;
+    private String role;
+    private String sortBy;
+    private String order;
 }

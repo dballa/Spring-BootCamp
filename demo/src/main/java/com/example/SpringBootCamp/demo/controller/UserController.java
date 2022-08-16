@@ -1,69 +1,59 @@
 package com.example.SpringBootCamp.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.example.SpringBootCamp.demo.converter.UserConverter;
+import com.example.SpringBootCamp.demo.dto.UserDto;
+import com.example.SpringBootCamp.demo.dto.UserFilter;
+import com.example.SpringBootCamp.demo.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.SpringBootCamp.demo.converter.UserConverter;
-import com.example.SpringBootCamp.demo.dto.UserDto;
-import com.example.SpringBootCamp.demo.dto.UserDtoForCreate;
-import com.example.SpringBootCamp.demo.dto.UserFilter;
-import com.example.SpringBootCamp.demo.service.UserService;
-
-import io.swagger.annotations.ApiOperation;
-
-@RestController
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+@Controller
 public class UserController {
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	UserService userSevice;
+    @ApiOperation(value = "Add a new user")
+    @PostMapping("/users")
+    public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDto user) {
 
-	@DeleteMapping("/users/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteUser(@PathVariable long id) {
-		userSevice.deleteUser(id);
+        return new ResponseEntity<>(UserConverter.toDto(userService.addUser(user)), HttpStatus.CREATED);
+    }
 
-	}
+    @DeleteMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable long id){
+        userService.deleteUser(id);
+    }
 
-	@ApiOperation(value = "Add a new user")
-	@PostMapping("/users")
-	public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDtoForCreate user) {
 
-		return new ResponseEntity<>(UserConverter.toDto(userSevice.addUser(user)), HttpStatus.CREATED);
-	}
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDto>> getUsers(@RequestParam(required = false) String firstName,
+                                                  @RequestParam(required = false) String lastName, @RequestParam(required = false) Integer age,
+                                                  @RequestParam(required = false) String role,
+                                                  @RequestParam(required = false) String sortBy, @RequestParam(required = false) String order) {
+        List<UserDto> toReturn = new ArrayList<UserDto>();
+        UserFilter filter = new UserFilter(firstName, lastName, age,role, sortBy, order);
+        userService.getUsers(filter).forEach(entity -> toReturn.add(UserConverter.toDto(entity)));
+        return new ResponseEntity<List<UserDto>>(toReturn, HttpStatus.OK);
 
-	@GetMapping("/users")
-	public ResponseEntity<List<UserDto>> getUsers(@RequestParam(required = false) String name,
-			@RequestParam(required = false) String lastName, @RequestParam(required = false) Integer age,
-			@RequestParam(required = false) String sortBy, @RequestParam(required = false) String order) {
-		List<UserDto> toReturn = new ArrayList<UserDto>();
-		UserFilter filter = new UserFilter(name, lastName, age, sortBy, order);
-		userSevice.getUsers(filter).forEach(entity -> toReturn.add(UserConverter.toDto(entity)));
-		return new ResponseEntity<List<UserDto>>(toReturn, HttpStatus.OK);
+    }
+    @GetMapping("/getallusers")
+    public  ResponseEntity<List<UserDto>> getallUsers(){
+        List<UserDto> toReturn = new ArrayList<UserDto>();
+        userService.getAllUsers().forEach(entity -> toReturn.add(UserConverter.toDto(entity)));
+        return new ResponseEntity<List<UserDto>>(toReturn, HttpStatus.OK);
+    }
 
-	}
 
-	@PostMapping("/testTransaction")
-	public void testTransaction() {
-		userSevice.testTransaction();
-	}
-
-	@GetMapping("/testRestTemplate")
-	public void testRest() {
-		userSevice.testRest();
-	}
-
+    @GetMapping("/testRestTemplate")
+    public void testRest() {
+        userService.testRest();
+    }
 }

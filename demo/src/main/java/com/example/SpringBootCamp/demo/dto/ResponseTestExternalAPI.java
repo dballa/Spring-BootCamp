@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 public class ResponseTestExternalAPI {
 
-	private int userId;
-	private int id;
-	private String title;
-	private boolean completed;
+    private int userId;
+    private int id;
+    private String title;
+    private boolean completed;
 }
